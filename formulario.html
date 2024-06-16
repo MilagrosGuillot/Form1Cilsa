@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <link rel="stylesheet" type="text/css" href="formulario.css">
+</head>
+
+<body>
+    <h1 class="tituloPrincipal">Formulario de Datos Personales</h1>
+    <form id="form">
+        <div class="contenedorPrincipal">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" maxlength="20" pattern="[A-Za-z]+" required>
+            <div id="nombreError" class="error"></div>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" maxlength="20" pattern="[A-Za-z]+" required>
+            <div id="apellidoError" class="error"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" maxlength="100" required>
+            <div id="emailError" class="error"></div>
+
+            <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required>
+            <div id="fechaNacimientoError" class="error"></div>
+
+            <label for="pais-residencia">País de Residencia:</label>
+            <input type="text" id="pais-residencia" name="pais-residencia" maxlength="50" required>
+            <div id="paisResidenciaError" class="error"></div>
+
+            <div style="width: 100%;">
+                <button type="submit" class="inputEnvios">Enviar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="contenedorBotones">
+        <button class="inputEnvios">Estilo 1</button>
+        <button class="inputEnvios" onclick="setHighContrastStyle()">Estilo de Alto Contraste</button>
+    </div>
+
+    <script>
+
+        function setHighContrastStyle() {
+            document.body.classList.add('high-contrast');
+        }
+
+        document.getElementById('form').addEventListener('input', function () {
+            validateForm();
+        });
+
+        function validateForm() {
+            let isValid = true;
+
+            // Valida Nombre
+            const nombre = document.getElementById('nombre');
+            const nombreError = document.getElementById('nombreError');
+            if (!nombre.value) {
+                isValid = false;
+                nombreError.textContent = 'El campo Nombre es obligatorio.';
+            } else {
+                nombreError.textContent = '';
+            }
+
+            // Valida Apellido
+            const apellido = document.getElementById('apellido');
+            const apellidoError = document.getElementById('apellidoError');
+            if (!apellido.value) {
+                isValid = false;
+                apellidoError.textContent = 'El campo Apellido es obligatorio.';
+            } else {
+                apellidoError.textContent = '';
+            }
+
+            // Valida Email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!email.value) {
+                isValid = false;
+                emailError.textContent = 'El campo Email es obligatorio.';
+            } else if (!emailPattern.test(email.value)) {
+                isValid = false;
+                emailError.textContent = 'Por favor, introduce una dirección de email válida.';
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Valida Fecha de Nacimiento
+            const fechaNacimiento = document.getElementById('fecha-nacimiento');
+            const fechaNacimientoError = document.getElementById('fechaNacimientoError');
+            if (!fechaNacimiento.value) {
+                isValid = false;
+                fechaNacimientoError.textContent = 'El campo Fecha de Nacimiento es obligatorio.';
+            } else {
+                fechaNacimientoError.textContent = '';
+            }
+
+            // Valida País de Residencia
+            const paisResidencia = document.getElementById('pais-residencia');
+            const paisResidenciaError = document.getElementById('paisResidenciaError');
+            if (!paisResidencia.value) {
+                isValid = false;
+                paisResidenciaError.textContent = 'El campo País de Residencia es obligatorio.';
+            } else {
+                paisResidenciaError.textContent = '';
+            }
+
+            return isValid;
+        }
+    
+    </script>
+
+</body>
+
+</html>
